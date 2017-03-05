@@ -110,3 +110,5 @@ Then the installations are:
 Compile sth in folder sinri:
 
 	gcc ../libxlsxio_read.dylib ../libxlsxio_write.dylib a.c ../libxlsxio_read.a ../libxlsxio_write.a
+	# On LeqeeAliyunTest Debian Wheezy
+	gcc /usr/local/lib/libxlsxio_write.so /usr/local/lib/libxlsxio_read.so SinriExcel2CSV.c /usr/local/lib/libxlsxio_read.a /usr/local/lib/libxlsxio_write.a -o SinriExcel2CSV
