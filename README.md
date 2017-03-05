@@ -51,3 +51,16 @@ This project has the following depencancies:
 License
 -------
 XLSX I/O is released under the terms of the MIT License (MIT), see LICENSE.txt.
+
+SINRI NOTE
+-------
+
+Run at base:
+
+	cmake .
+	make
+	make install
+
+Compile sth in folder sinri:
+
+	gcc ../libxlsxio_read.dylib ../libxlsxio_write.dylib a.c ../libxlsxio_read.a ../libxlsxio_write.a
