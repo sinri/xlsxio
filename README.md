@@ -61,6 +61,52 @@ Run at base:
 	make
 	make install
 
+Then the installations are:
+
+	# Debian 7
+
+	-- Install configuration: ""
+	-- Installing: /usr/local/lib/libxlsxio_read.a
+	-- Installing: /usr/local/lib/libxlsxio_write.a
+	-- Installing: /usr/local/lib/libxlsxio_read.so
+	-- Removed runtime path from "/usr/local/lib/libxlsxio_read.so"
+	-- Installing: /usr/local/lib/libxlsxio_write.so
+	-- Removed runtime path from "/usr/local/lib/libxlsxio_write.so"
+	-- Installing: /usr/local/bin/xlsxio_xlsx2csv
+	-- Removed runtime path from "/usr/local/bin/xlsxio_xlsx2csv"
+	-- Installing: /usr/local/bin/xlsxio_csv2xlsx
+	-- Removed runtime path from "/usr/local/bin/xlsxio_csv2xlsx"
+	-- Installing: /usr/local/bin/example_xlsxio_write_getversion
+	-- Removed runtime path from "/usr/local/bin/example_xlsxio_write_getversion"
+	-- Installing: /usr/local/bin/example_xlsxio_write
+	-- Removed runtime path from "/usr/local/bin/example_xlsxio_write"
+	-- Installing: /usr/local/bin/example_xlsxio_read
+	-- Removed runtime path from "/usr/local/bin/example_xlsxio_read"
+	-- Installing: /usr/local/bin/example_xlsxio_read_advanced
+	-- Removed runtime path from "/usr/local/bin/example_xlsxio_read_advanced"
+	-- Installing: /usr/local/include
+	-- Installing: /usr/local/include/xlsxio_read.h
+	-- Installing: /usr/local/include/xlsxio_write.h
+	-- Installing: /usr/local/include/xlsxio_version.h
+
+	# Mac OS
+
+	-- Install configuration: ""
+	-- Installing: /usr/local/lib/libxlsxio_read.a
+	-- Installing: /usr/local/lib/libxlsxio_write.a
+	-- Installing: /usr/local/lib/libxlsxio_read.dylib
+	-- Installing: /usr/local/lib/libxlsxio_write.dylib
+	-- Installing: /usr/local/bin/xlsxio_xlsx2csv
+	-- Installing: /usr/local/bin/xlsxio_csv2xlsx
+	-- Installing: /usr/local/bin/example_xlsxio_write_getversion
+	-- Installing: /usr/local/bin/example_xlsxio_write
+	-- Installing: /usr/local/bin/example_xlsxio_read
+	-- Installing: /usr/local/bin/example_xlsxio_read_advanced
+	-- Installing: /usr/local/include
+	-- Installing: /usr/local/include/xlsxio_read.h
+	-- Installing: /usr/local/include/xlsxio_version.h
+	-- Installing: /usr/local/include/xlsxio_write.h
+
 Compile sth in folder sinri:
 
 	gcc ../libxlsxio_read.dylib ../libxlsxio_write.dylib a.c ../libxlsxio_read.a ../libxlsxio_write.a

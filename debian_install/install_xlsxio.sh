@@ -34,4 +34,8 @@ cmake .
 make
 make install
 
+echo "ENSURE STATIC OBJECT"
+export LD_LIBRARY_PATH=/usr/local/lib/:$LD_LIBRARY_PATH
+ldconfig
+
 echo "OVER"
