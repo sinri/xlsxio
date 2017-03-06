@@ -53,7 +53,7 @@ else{
         response("FAIL","SinriExcel2CSV Error: ".PHP_EOL.$csv_lines);
     }
 
-    response("OK",array("csv"=>$csv_lines,"exec_time"=>($end_time-$begin_time)));
+    response("OK",array("csv"=>$csv_lines,"exec_time"=>($end_time-$begin_time),"command"=>$command));
 }
 
 function response($result,$data){

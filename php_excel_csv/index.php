@@ -25,7 +25,8 @@
 			<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
 			&nbsp;&nbsp;
 			Sheet Name (Optional, first sheet by default): <input type="text" name="sheet_name">
-			&nbsp;&nbsp;
+		</p>
+		<p>
 			Skip Style: 
 			<select name="skip_style">
 				<option value=''>Skip empty rows.</option>
