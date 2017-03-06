@@ -17,11 +17,11 @@
 </head>
 <body>
 	<h1>PHP EXCEL CSV - XLSX/IO Sinri Version</h1>
-	<h2>Upload and analyze demo</h2>
+	<h2>Upload and analyze demo, XLSX support only.</h2>
 	<hr>
 	<form action="./php_excel_csv.php" enctype="multipart/form-data" method="POST" target="result_iframe">
 		<p>
-			Excel File (*.xls, *.xlsx): <input type="file" name="file">
+			Excel 2007 File (*.xlsx): <input type="file" name="file">
 			<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
 			&nbsp;&nbsp;
 			Sheet Name (Optional, first sheet by default): <input type="text" name="sheet_name">
