@@ -40,5 +40,7 @@
 	</form>
 	<hr>
 	<iframe name="result_iframe"></iframe>
+	<hr>
+	<p style="text-align: center;color:gray;">Copyright 2017 Sinri Edogawa, under <a href="https://github.com/sinri/xlsxio/raw/master/LICENSE.txt">MIT License (MIT)</a>. </p>
 </body>
 </html>
