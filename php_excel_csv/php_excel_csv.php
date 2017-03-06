@@ -2,6 +2,7 @@
 /**
  * POST TO THIS FILE
  * RESPONSE CSV
+ * PHP 5.4 or later required
  */
 if ($_FILES["file"]["error"] > 0){
     // echo "Error: " . $_FILES["file"]["error"] . "<br />";
@@ -47,6 +48,6 @@ else{
 }
 
 function response($result,$data){
-    echo json_encode(array("result"=>$result,"data"=>$data));
+    echo json_encode(array("result"=>$result,"data"=>$data),JSON_PRETTY_PRINT);
     exit();
 }
