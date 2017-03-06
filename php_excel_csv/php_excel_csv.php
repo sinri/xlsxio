@@ -33,8 +33,11 @@ else{
     if(!in_array($_FILES['file']['type'], $allowed['xlsx'])){
         response("FAIL","File Upload cannot be treated as EXCEL file: ".$_FILES['file']['type']);
     }
-
-    $command="SinriExcel2CSV -i ".escapeshellarg($_FILES["file"]["tmp_name"]);
+    $command="SinriExcel2CSV";
+    if(!empty($_REQUEST['skip_style']) && preg_match('/^\-[a-z]$/', $_REQUEST['skip_style'])){
+        $command.=" ".$_REQUEST['skip_style'];
+    }
+    $command.=" ".escapeshellarg($_FILES["file"]["tmp_name"]);
     if(!empty($_REQUEST['sheet_name'])){
         $command.=" ".escapeshellarg($_REQUEST['sheet_name']);
     }

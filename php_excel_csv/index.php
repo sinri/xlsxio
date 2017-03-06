@@ -20,9 +20,22 @@
 	<h2>Upload and analyze demo</h2>
 	<hr>
 	<form action="./php_excel_csv.php" enctype="multipart/form-data" method="POST" target="result_iframe">
-		Excel File (*.xls, *.xlsx): <input type="file" name="file">
-		<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-		<input type="submit" value="Submit" />
+		<p>
+			Excel File (*.xls, *.xlsx): <input type="file" name="file">
+			<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+			&nbsp;&nbsp;
+			Sheet Name (Optional, first sheet by default): <input type="text" name="sheet_name">
+			&nbsp;&nbsp;
+			Skip Style: 
+			<select name="skip_style">
+				<option value=''>Skip empty rows.</option>
+				<option value='-c'>Skip empty rows and cells.</option>
+				<option value='-i'>Skip rows whose first column is empty.</option>
+				<option value='-e'>Skip extra cells right to header row.</option>
+				<option value='-n'>Read all cells.</option>
+			</select>
+			<input type="submit" value="Submit" />
+		</p>
 	</form>
 	<hr>
 	<iframe name="result_iframe"></iframe>
