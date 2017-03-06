@@ -4,6 +4,10 @@
  * RESPONSE CSV
  * PHP 5.4 or later required
  */
+//允许跨域……跨域……只有POST可以
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods:POST');
+
 if(!isset($_FILES["file"])){
     response("FAIL","File Upload Error: Not Yet");
 }
