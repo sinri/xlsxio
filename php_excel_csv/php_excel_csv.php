@@ -31,7 +31,8 @@ else{
         "xls" => array( "application/vnd.ms-excel" ),
         "xlsx" => array(
             "application/vnd.ms-excel",
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/octet-stream",//For XML written xls?
         )
     );
     if(!in_array($_FILES['file']['type'], $allowed['xlsx'])){
