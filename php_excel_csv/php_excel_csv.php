@@ -4,6 +4,10 @@
  * RESPONSE CSV
  * PHP 5.4 or later required
  */
+if(!isset($_FILES["file"])){
+    response("FAIL","File Upload Error: Not Yet");
+}
+
 if ($_FILES["file"]["error"] > 0){
     // echo "Error: " . $_FILES["file"]["error"] . "<br />";
     response("FAIL","File Upload Error: ".$_FILES["file"]["error"]);
@@ -34,7 +38,9 @@ else{
     if(!empty($_REQUEST['sheet_name'])){
         $command.=" ".escapeshellarg($_REQUEST['sheet_name']);
     }
+    $begin_time=microtime(true);
     exec($command,$csv_lines,$return_var);
+    $end_time=microtime(true);
     if(!empty($csv_lines)){
         $csv_lines=implode("\n", $csv_lines);
     }else{
@@ -44,7 +50,7 @@ else{
         response("FAIL","SinriExcel2CSV Error: ".PHP_EOL.$csv_lines);
     }
 
-    response("OK",$csv_lines);
+    response("OK",array("csv"=>$csv_lines,"exec_time"=>($end_time-$begin_time)));
 }
 
 function response($result,$data){
