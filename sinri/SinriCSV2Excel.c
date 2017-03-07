@@ -41,7 +41,8 @@ void debug(const char*string,int line_no){
 }
 
 void cleanCellBuffer(char*cellBuffer,int len){
-    for(int i=0;i<len;i++){
+    int i;
+    for(i=0;i<len;i++){
         cellBuffer[i]=0;
     }
 }
