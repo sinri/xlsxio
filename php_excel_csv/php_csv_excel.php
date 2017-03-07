@@ -51,7 +51,7 @@ else{
     }else{
         //by default as GBK
         exec("iconv -t UTF-8 -f GBK -c ".escapeshellarg($_FILES["file"]["tmp_name"]),$lines,$return_var);
-        $tmp=implode('\n', $lines);
+        $tmp=implode("\n", $lines);
         file_put_contents($_FILES["file"]["tmp_name"], $tmp);
     }
 
