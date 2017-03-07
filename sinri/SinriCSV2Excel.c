@@ -22,13 +22,28 @@
 #define BGCOLOR_END "\033[0m"
 #endif
 
+#ifndef CELL_BUFFER_LENGTH
+#define CELL_BUFFER_LENGTH 1024
+#endif
+
+#ifndef DEBUG_MODE
+#define DEBUG_MODE 0
+#endif
+
 struct node {
     char* c;
+    // int length;
     struct node *next;
 };
 
 void debug(const char*string,int line_no){
     printf("%s[DEBUG]<%d> %s%s\n",GRAY_BGCOLOR_START,line_no, string,BGCOLOR_END);
+}
+
+void cleanCellBuffer(char*cellBuffer,int len){
+    for(int i=0;i<len;i++){
+        cellBuffer[i]=0;
+    }
 }
 
 struct node* tailNode(struct node* base){
@@ -43,14 +58,18 @@ struct node* appendToNode(struct node* base,const char* c){
     if(base){
         struct node* old_tail=tailNode(base);
         struct node* tail=(struct node*)malloc(sizeof(struct node));
-        tail->c=(char*)malloc(sizeof(char)*(strlen(c)));
-        strcpy(tail->c,c);
+        tail->c=(char*)malloc(sizeof(char)*(strlen(c)+1));
+        strncpy(tail->c,c,strlen(c));
+        tail->c[strlen(c)]=0;
+        // tail->length=strlen(c);
         tail->next=NULL;
         old_tail->next=tail;
     }else{
         base=(struct node*)malloc(sizeof(struct node));
-        base->c=(char*)malloc(sizeof(char)*(strlen(c)));
-        strcpy(base->c,c);
+        base->c=(char*)malloc(sizeof(char)*(strlen(c)+1));
+        strncpy(base->c,c,strlen(c));
+        base->c[strlen(c)]=0;
+        // base->length=strlen(c);
         base->next=NULL;
     }
     return base;
@@ -58,7 +77,6 @@ struct node* appendToNode(struct node* base,const char* c){
 
 void writeRow(xlsxiowriter handle,struct node *row){
     static int rowIndex=0;
-    //TODO
     if(rowIndex==0){
         //set row height
         xlsxiowrite_set_row_height(handle, 1);
@@ -67,6 +85,7 @@ void writeRow(xlsxiowriter handle,struct node *row){
 
         struct node *cell = row;
         while(cell){
+            if(DEBUG_MODE)printf("%s | ", cell->c);
             // xlsxiowrite_add_column(handle, cell->c, 0);//title row, no use better kamo?
             xlsxiowrite_add_cell_string(handle, cell->c);
             cell=cell->next;
@@ -75,11 +94,13 @@ void writeRow(xlsxiowriter handle,struct node *row){
     }else{
         struct node *cell = row;
         while(cell){
+            if(DEBUG_MODE)printf("%s | ", cell->c);
             xlsxiowrite_add_cell_string(handle, cell->c);
             cell=cell->next;
         }
         xlsxiowrite_next_row(handle);
     }
+    if(DEBUG_MODE)printf("\n");
     //OVER
     rowIndex++;
 }
@@ -129,23 +150,26 @@ int main (int argc, char* argv[])
     //read
     char oneBuffer[1];
     int char_status=0;// [0]"[1] X[1] \[2]\[1] \[2]"[1] "[0],[0]X[3],[0],\[4]\[3]
-    char cellBuffer[1024]={0};// dymatic better?
+    char cellBuffer[CELL_BUFFER_LENGTH]={0};// dymatic better?
     int cellBufferPtr=0;
     struct node * row=NULL;
     while(fread(oneBuffer,sizeof( char ), 1,src)){
+        if(DEBUG_MODE)printf("%sread:%c [%d] cs=%d cell:%s%s\n", GREEN_BGCOLOR_START,oneBuffer[0],oneBuffer[0],char_status,cellBuffer,BGCOLOR_END);
         switch(char_status){
             case 0:{
                 if(oneBuffer[0]=='"'){
                     // begin cellBuffer, quote begin
                     cellBufferPtr=0;
-                    cellBuffer[cellBufferPtr]=0;
+                    // cellBuffer[cellBufferPtr]=0;
+                    cleanCellBuffer(cellBuffer,CELL_BUFFER_LENGTH);
                     char_status=1;
                 }
                 else if(oneBuffer[0]==','){
                     // one cell buffer ended
                     row=appendToNode(row,cellBuffer);
                     cellBufferPtr=0;
-                    cellBuffer[cellBufferPtr]=0;
+                    // cellBuffer[cellBufferPtr]=0;
+                    cleanCellBuffer(cellBuffer,CELL_BUFFER_LENGTH);
                     char_status=0;
                 }
                 else if(oneBuffer[0]=='\n'){
@@ -153,7 +177,8 @@ int main (int argc, char* argv[])
                     if(cellBuffer[0]){
                         row=appendToNode(row,cellBuffer);
                         cellBufferPtr=0;
-                        cellBuffer[cellBufferPtr]=0;
+                        // cellBuffer[cellBufferPtr]=0;
+                        cleanCellBuffer(cellBuffer,CELL_BUFFER_LENGTH);
                         // write
                         writeRow(handle,row);
                         row=NULL;
@@ -215,13 +240,15 @@ int main (int argc, char* argv[])
                     // cell over
                     row=appendToNode(row,cellBuffer);
                     cellBufferPtr=0;
-                    cellBuffer[cellBufferPtr]=0;
+                    // cellBuffer[cellBufferPtr]=0;
+                    cleanCellBuffer(cellBuffer,CELL_BUFFER_LENGTH);
                 }
                 else if(oneBuffer[0]=='\n'){
                     // cell over
                     row=appendToNode(row,cellBuffer);
                     cellBufferPtr=0;
-                    cellBuffer[cellBufferPtr]=0;
+                    // cellBuffer[cellBufferPtr]=0;
+                    cleanCellBuffer(cellBuffer,CELL_BUFFER_LENGTH);
                     // write
                     writeRow(handle,row);
                     row=NULL;
@@ -241,7 +268,8 @@ int main (int argc, char* argv[])
                     // cell over
                     row=appendToNode(row,cellBuffer);
                     cellBufferPtr=0;
-                    cellBuffer[cellBufferPtr]=0;
+                    // cellBuffer[cellBufferPtr]=0;
+                    cleanCellBuffer(cellBuffer,CELL_BUFFER_LENGTH);
                     // write
                     writeRow(handle,row);
                     row=NULL;
@@ -266,7 +294,8 @@ int main (int argc, char* argv[])
                     else {
                         cellBuffer[cellBufferPtr++]='\\';
                         cellBuffer[cellBufferPtr++]=oneBuffer[0];
-                        cellBuffer[cellBufferPtr]=0;
+                        // cellBuffer[cellBufferPtr]=0;
+                        cleanCellBuffer(cellBuffer,CELL_BUFFER_LENGTH);
                     }
                     char_status=3;
                 }
@@ -278,6 +307,17 @@ int main (int argc, char* argv[])
             }
             break;
         }
+    }
+    //row over
+    if(cellBuffer[0]){
+        row=appendToNode(row,cellBuffer);
+        cellBufferPtr=0;
+        // cellBuffer[cellBufferPtr]=0;
+        cleanCellBuffer(cellBuffer,CELL_BUFFER_LENGTH);
+        // write
+        writeRow(handle,row);
+        row=NULL;
+        char_status=0;
     }
     fclose(src);
 
