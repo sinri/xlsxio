@@ -64,3 +64,8 @@ else{
         exit();
     }
 }
+
+function response($result,$data){
+    echo json_encode(array("result"=>$result,"data"=>$data),JSON_PRETTY_PRINT);
+    exit();
+}
