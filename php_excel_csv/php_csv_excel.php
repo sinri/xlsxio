@@ -26,12 +26,11 @@ else{
     if($_FILES["file"]["size"]/1024.0/1024.0>10){
         response("FAIL","File Upload Too Large: ".($_FILES["file"]["size"])." bytes");
     }
-    /*
+    
     $charset_result=exec("enca ".escapeshellarg($_FILES["file"]["tmp_name"]));
     if(FALSE===strstr($charset_result, "UTF-8")){
         exec("enca -x utf-8 ".escapeshellarg($_FILES["file"]["tmp_name"]));
     }
-    */
 
     exec("SinriCSV2Excel ".escapeshellarg($_FILES["file"]["tmp_name"])." ".escapeshellarg($_FILES["file"]["tmp_name"].".xlsx"),$output_lines,$return_var);
     if($return_var){
