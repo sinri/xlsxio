@@ -29,7 +29,8 @@ else{
     
     $charset_result=exec("enca ".escapeshellarg($_FILES["file"]["tmp_name"]));
     if(FALSE===strstr($charset_result, "UTF-8")){
-        exec("enca -x utf-8 ".escapeshellarg($_FILES["file"]["tmp_name"]));
+        // exec("enca -x utf-8 ".escapeshellarg($_FILES["file"]["tmp_name"]));
+        exec("iconv -t UTF-8 -f GBK -c ".escapeshellarg($_FILES["file"]["tmp_name"])."  > ".escapeshellarg($_FILES["file"]["tmp_name"]));
     }
 
     exec("SinriCSV2Excel ".escapeshellarg($_FILES["file"]["tmp_name"])." ".escapeshellarg($_FILES["file"]["tmp_name"].".xlsx"),$output_lines,$return_var);
