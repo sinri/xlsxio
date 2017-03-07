@@ -45,7 +45,7 @@ else{
                 response("FAIL","Convert Error: unknown given encoding");
             }
             exec("iconv -t UTF-8 -f ".$_REQUEST['csv_encoding']." -c ".escapeshellarg($_FILES["file"]["tmp_name"]),$lines,$return_var);
-            $tmp=implode('\n', $lines);
+            $tmp=implode("\n", $lines);
             file_put_contents($_FILES["file"]["tmp_name"], $tmp);
         }
     }else{
