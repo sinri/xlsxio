@@ -21,6 +21,11 @@
 	<h2>Convert CSV to EXCEL</h2>
 	<form action="./php_csv_excel.php" enctype="multipart/form-data" method="POST">
 		<p>
+			File Encode:
+			<input type="text" name="csv_encoding" value='GBK'>
+			(Chinese Version Excel-generated CSV commonly use GBK)
+		</p>
+		<p>
 			CSV FILE (*.csv):
 			<input type="file" name="file">
 			<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />

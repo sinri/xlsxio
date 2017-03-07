@@ -39,6 +39,22 @@ else{
     }
     */
 
+    if(isset($_REQUEST['csv_encoding'])){
+        if($_REQUEST['csv_encoding']!='UTF-8'){
+            if(!preg_match('/^[A-Za-z0-9\-]+$/', $_REQUEST['csv_encoding'])){
+                response("FAIL","Convert Error: unknown given encoding");
+            }
+            exec("iconv -t UTF-8 -f ".$_REQUEST['csv_encoding']." -c ".escapeshellarg($_FILES["file"]["tmp_name"]),$lines,$return_var);
+            $tmp=implode('\n', $lines);
+            file_put_contents($_FILES["file"]["tmp_name"], $tmp);
+        }
+    }else{
+        //by default as GBK
+        exec("iconv -t UTF-8 -f GBK -c ".escapeshellarg($_FILES["file"]["tmp_name"]),$lines,$return_var);
+        $tmp=implode('\n', $lines);
+        file_put_contents($_FILES["file"]["tmp_name"], $tmp);
+    }
+
     exec("SinriCSV2Excel ".escapeshellarg($_FILES["file"]["tmp_name"])." ".escapeshellarg($_FILES["file"]["tmp_name"].".xlsx"),$output_lines,$return_var);
     if($return_var){
         //error
