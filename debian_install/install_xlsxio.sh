@@ -5,6 +5,8 @@ mkdir -p /opt/sinri
 cd /opt/sinri
 
 echo "INSTALL components..."
+apt-get update
+apt-get install enca
 apt-get install cmake
 apt-get install libzip-dev
 apt-get install libexpat1-dev

@@ -17,8 +17,19 @@
 </head>
 <body>
 	<h1>PHP EXCEL CSV - XLSX/IO Sinri Version</h1>
-	<h2>Upload and analyze demo, XLSX support only.</h2>
 	<hr>
+	<h2>Convert CSV to EXCEL</h2>
+	<form action="./php_csv_excel.php" enctype="multipart/form-data" method="POST">
+		<p>
+			CSV FILE (*.csv):
+			<input type="file" name="file">
+			<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
+			&nbsp;&nbsp;
+			<input type="submit" value="Submit" />
+		</p>
+	</form>
+	<hr>
+	<h2>Upload and analyze demo, XLSX support only.</h2>
 	<form action="./php_excel_csv.php" enctype="multipart/form-data" method="POST" target="result_iframe">
 		<p>
 			Excel 2007 File (*.xlsx): <input type="file" name="file">
